@@ -1,12 +1,12 @@
 <div class="flex flex-col gap-16 p-4 w-3/4 lg:w-1/2 mx-auto">
   <div class="flex gap-4 items-center">
-    <h1 class="text-2xl">TODOS</h1>
-    <button (click)="reset()" class="btn btn-sm btn-circle btn-outline ml-6">↺</button>
-    <button (click)="undo()" class="btn btn-sm btn-circle btn-outline">↩</button>
-    <button (click)="redo()" class="btn btn-sm btn-circle btn-outline">↪</button>
+    <h1 class="text-4xl font-bold">TODOS</h1>
+    <button (click)="reset()" class="btn btn-sm btn-circle shadow ml-6">↺</button>
+    <button (click)="undo()" class="btn btn-sm btn-circle shadow">↩</button>
+    <button (click)="redo()" class="btn btn-sm btn-circle shadow">↪</button>
   </div>
 
-  <div class="p-4 rounded-2xl bg-base-200/30 backdrop-blur-md shadow border dark:border-neutral flex flex-col gap-4 mx-auto w-full">
+  <div class="p-8 rounded-lg bg-base-200/30 backdrop-blur-md shadow border dark:border-neutral flex flex-col gap-4 mx-auto w-full">
     <label class="input input-bordered flex items-center gap-2">
       ✅
       <input [formControl]="newTodoCtl" type="text" class="grow" placeholder="Laundry..." />
@@ -20,15 +20,15 @@
 
   <ul class="flex flex-col gap-4  mx-auto w-full">
     @for (t of store.todos(); track t.id) {
-    <li class="grid grid-cols-6 items-center gap-4 p-4 rounded-2xl bg-base-200/30 backdrop-blur-md shadow border dark:border-neutral">
-      <span class="badge badge-neutral badge-primary">{{ t.assignee }} </span>
-      <p class="col-span-3 bg-base-200 p-3 rounded-2xl">
+    <li class="grid grid-cols-7 items-center gap-4 p-8 rounded-lg bg-base-200/30 backdrop-blur-md shadow border dark:border-neutral">
+      <p class="col-span-5 bg-base-300 dark:bg-base-100 p-3 rounded-lg">
       {{ t.content }}
       </p>
-      <input type="checkbox" [checked]="t.isDone" (change)="toggleTodo(t)" class="checkbox checkbox-lg checkbox-primary" />
-      <button (click)="removeTodo(t.id)" class="btn btn-sm btn-circle btn-outline">❌</button>
-      <span class="badge badge-neutral col-span-3">Created at: {{ t.createdAt | date:'short' }} </span>
-      <span class="badge badge-neutral col-span-3">Updated at: {{ t.lastUpdatedAt | date:'short' }} </span>
+      <input type="checkbox" [checked]="t.isDone" (change)="toggleTodo(t)" class="checkbox checkbox-lg  justify-self-end" />
+      <button (click)="removeTodo(t.id)" class="btn btn-sm btn-circle justify-self-end">❌</button>
+      <span class="badge badge-primary">{{ t.assignee }}</span>
+      <span class="badge badge-ghost col-span-3  justify-self-end">Created at: {{ t.createdAt | date:'short' }} </span>
+      <span class="badge badge-ghost col-span-3  justify-self-end">Edited at: {{ t.lastUpdatedAt | date:'short' }} </span>
     </li>
 
     } @empty {
