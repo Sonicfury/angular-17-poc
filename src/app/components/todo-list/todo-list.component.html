@@ -1,0 +1,39 @@
+<div class="flex flex-col gap-16 p-4 w-1/2 mx-auto">
+  <div class="flex flex-gap-4 items-center">
+    <h1 class="text-2xl">TODOS</h1>
+    <button (click)="reset()" class="btn btn-sm btn-circle btn-outline ml-6">🔄</button>
+  </div>
+
+  <div class="p-4 rounded-2xl bg-base-200/30 backdrop-blur-md shadow border dark:border-neutral flex flex-col gap-4 mx-auto w-full">
+    <label class="input input-bordered flex items-center gap-2">
+      ✅
+      <input [formControl]="newTodoCtl" type="text" class="grow" placeholder="Laundry..." />
+    </label>
+    <label class="input input-bordered flex items-center gap-2">
+      👤
+      <input [formControl]="assigneeCtl" type="text" class="grow" placeholder="John Doe" />
+    </label>
+    <button class="btn" (click)="addTodo()">➕</button>
+  </div>
+
+  <ul class="flex flex-col gap-4  mx-auto w-full">
+    @for (t of store.todos(); track t.id) {
+    <li class="grid grid-cols-6 items-center gap-4 p-4 rounded-2xl bg-base-200/30 backdrop-blur-md shadow border dark:border-neutral">
+      <span class="badge badge-neutral badge-primary">{{ t.assignee }} </span>
+      <p class="col-span-3 bg-base-200 p-3 rounded-2xl">
+      {{ t.content }}
+      </p>
+      <input type="checkbox" [checked]="t.isDone" (change)="toggleTodo(t)" class="checkbox checkbox-lg checkbox-primary" />
+      <button (click)="removeTodo(t.id)" class="btn btn-sm btn-circle btn-outline">❌</button>
+      <span class="badge badge-neutral col-span-3">Created at: {{ t.createdAt | date:'short' }} </span>
+      <span class="badge badge-neutral col-span-3">Updated at: {{ t.lastUpdatedAt | date:'short' }} </span>
+    </li>
+
+    } @empty {
+    <span>
+      No content
+    </span>
+    }
+
+  </ul>
+</div>
