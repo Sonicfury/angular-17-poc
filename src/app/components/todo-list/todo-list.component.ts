@@ -49,4 +49,14 @@ export class TodoListComponent {
   reset() {
     this.store.todos().forEach(t => this.store.removeTodo(t.id))
   }
+
+  undo() {
+    console.log('undo')
+    this.store.undo();
+  }
+
+  redo() {
+    console.log('redo')
+    this.store.redo();
+  }
 }
